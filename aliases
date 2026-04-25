@@ -1,0 +1,7 @@
+# Navigation
+alias ..='cd ..'
+alias ...='cd ../..'
+
+# List files
+alias ll='ls -lah --color=auto'
+alias l='ls -CF'
