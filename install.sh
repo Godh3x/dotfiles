@@ -49,6 +49,7 @@ if ! command -v starship &> /dev/null; then
     curl -sS https://starship.rs/install.sh | sh -s -- -y
 fi
 
+mkdir -p ~/.config
 if [ -f ~/.config/starship.toml ]; then
     echo "⚙️ Configuring Starship..."
     # Only backup if the file is DIFFERENT from current version
@@ -64,7 +65,6 @@ else
     echo "⚙️ Installing new Starship config..."
     curl -s "${RAW_URL}/starship.toml" -o ~/.config/starship.toml
 fi
-
 
 if ! grep -q 'starship init bash' ~/.bashrc; then
     echo 'eval "$(starship init bash)"' >> ~/.bashrc
