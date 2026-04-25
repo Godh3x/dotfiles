@@ -1,7 +1,23 @@
-# Navigation
+# --- Navigation ---
 alias ..='cd ..'
 alias ...='cd ../..'
 
-# List files
+# --- List files ---
 alias ll='ls -lah --color=auto'
 alias l='ls -CF'
+
+# --- Docker ---
+if docker compose version >/dev/null 2>&1; then
+    D_COMPOSE="docker compose"
+elif command -v docker-compose >/dev/null 2>&1; then
+    D_COMPOSE="docker-compose"
+else
+    D_COMPOSE="docker compose" # Fallback
+fi
+
+alias dc="$D_COMPOSE"
+alias dcu="$D_COMPOSE up -d"
+alias dcd="$D_COMPOSE down"
+alias dcl="$D_COMPOSE logs -f"
+alias dcps="$D_COMPOSE ps"
+alias dcr="$D_COMPOSE restart"
