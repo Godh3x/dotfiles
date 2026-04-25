@@ -5,6 +5,18 @@ USER_NAME="Godh3x"
 REPO_NAME="dotfiles"
 RAW_URL="https://raw.githubusercontent.com/${USER_NAME}/${REPO_NAME}/main"
 
+# Determine if sudo is needed
+if [ "$EUID" -ne 0 ]; then
+    if command -v sudo >/dev/null 2>&1; then
+        SUDO="sudo"
+    else
+        echo "❌ Error: sudo is not installed and you are not root."
+        exit 1
+    fi
+else
+    SUDO=""
+fi
+
 echo "🔍 Detecting OS..."
 if [ -f /etc/os-release ]; then
     . /etc/os-release
@@ -16,9 +28,9 @@ fi
 # --- DEPENDENCIES ---
 echo "📦 Installing system dependencies..."
 if [[ "${OS}" == "fedora" ]]; then
-    sudo dnf install -y curl git util-linux-user
+    ${SUDO} dnf install -y curl git util-linux-user
 elif [[ "${OS}" == "ubuntu" || "${OS}" == "debian" ]]; then
-    sudo apt update && sudo apt install -y curl git
+    ${SUDO} apt update && ${SUDO} apt install -y curl git
 fi
 
 # --- ALIASES ---
